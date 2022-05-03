@@ -1,0 +1,14 @@
+{
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "c:\\Users\\Danie\\Downloads\\openjfx-18_windows-x64_bin-sdk.zip",
+        "c:\\Users\\Danie\\OneDrive\\Desktop\\Java Effect\\javafx-sdk-18\\lib\\javafx.base.jar",
+        "c:\\Users\\Danie\\OneDrive\\Desktop\\Java Effect\\javafx-sdk-18\\lib\\javafx.controls.jar",
+        "c:\\Users\\Danie\\OneDrive\\Desktop\\Java Effect\\javafx-sdk-18\\lib\\javafx.fxml.jar",
+        "c:\\Users\\Danie\\OneDrive\\Desktop\\Java Effect\\javafx-sdk-18\\lib\\javafx.graphics.jar",
+        "c:\\Users\\Danie\\OneDrive\\Desktop\\Java Effect\\javafx-sdk-18\\lib\\javafx.media.jar",
+        "c:\\Users\\Danie\\OneDrive\\Desktop\\Java Effect\\javafx-sdk-18\\lib\\javafx.swing.jar",
+        "c:\\Users\\Danie\\OneDrive\\Desktop\\Java Effect\\javafx-sdk-18\\lib\\javafx.web.jar",
+        "c:\\Users\\Danie\\OneDrive\\Desktop\\Java Effect\\javafx-sdk-18\\lib\\javafx-swt.jar"
+    ]
+}

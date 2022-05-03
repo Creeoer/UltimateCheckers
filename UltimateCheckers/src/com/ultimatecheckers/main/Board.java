@@ -27,7 +27,7 @@ public class Board {
             for(int k = 0; k < SIZE; k++){
                 Rectangle tile = new Rectangle(50, 50);
                 Circle checkerPiece = new Circle(15);
-
+                //change
                 tile.setStroke(Color.WHITE);
                 if(counter == 0) {
                 tile.setFill(Color.BLACK);
