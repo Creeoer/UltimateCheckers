@@ -6,11 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-<<<<<<< HEAD
 
-=======
-
->>>>>>> 08c92860bfad5f5ac697d05f6ad0a3af990304c5
 public class UltimateCheckers extends Application{
     public static void main(String[] args) throws Exception {
         launch(args);
