@@ -1,5 +1,6 @@
 package com.ultimatecheckers.main;
 
+import javafx.css.Size;
 import javafx.scene.Parent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
@@ -10,7 +11,7 @@ import javafx.scene.shape.Rectangle;
 public class Board {
     
     private int SIZE;
-
+    private int third;
     private int[][] board;
 
     private GridPane checkerBoard;
@@ -18,6 +19,7 @@ public class Board {
     public Board(int size){
 
         SIZE = size;
+
 
         GridPane checkerBoard = new GridPane();
 
@@ -34,8 +36,8 @@ public class Board {
                 checkerPiece.setFill(Color.RED);
                 counter = 1; 
                 } else {
-                    checkerPiece.setFill(Color.YELLOW);
-                    tile.setFill(Color.BLUE);
+                    tile.setFill(Color.WHITE);
+                    checkerPiece.setFill(Color.WHITE);
                     counter = 0;
                 }
                 checkerBoard.add(new StackPane(tile), i, k);
