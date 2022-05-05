@@ -18,10 +18,10 @@ public class UltimateCheckers extends Application{
 		Button button1 = new Button("Button 1");
 		Button button2 = new Button("Button 2");
 		
-        Board checkerBoard = new Board(7);
+        Board checkerBoard = new Board(11);
 
 		
-		Scene scene = new Scene(checkerBoard.getBoard(), 300, 200);
+		Scene scene = new Scene(checkerBoard.getBoard(), 560, 560);
 		
 		primaryStage.setScene(scene);
 		

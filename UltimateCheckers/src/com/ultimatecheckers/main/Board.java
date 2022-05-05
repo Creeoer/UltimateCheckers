@@ -1,6 +1,5 @@
 package com.ultimatecheckers.main;
 
-import javafx.css.Size;
 import javafx.scene.Parent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
@@ -11,7 +10,6 @@ import javafx.scene.shape.Rectangle;
 public class Board {
     
     private int SIZE;
-    private int third;
     private int[][] board;
 
     private GridPane checkerBoard;
@@ -19,7 +17,7 @@ public class Board {
     public Board(int size){
 
         SIZE = size;
-
+        
 
         GridPane checkerBoard = new GridPane();
 
@@ -28,23 +26,36 @@ public class Board {
         for(int i = 0; i < SIZE; i++) {
             for(int k = 0; k < SIZE; k++){
                 Rectangle tile = new Rectangle(50, 50);
-                Circle checkerPiece = new Circle(15);
+                //Circle checkerPiece = new Circle(15);
                 //change
                 tile.setStroke(Color.WHITE);
                 if(counter == 0) {
                 tile.setFill(Color.BLACK);
-                checkerPiece.setFill(Color.RED);
+                //checkerPiece.setFill(Color.RED);
                 counter = 1; 
                 } else {
                     tile.setFill(Color.WHITE);
-                    checkerPiece.setFill(Color.WHITE);
+                    //checkerPiece.setFill(Color.WHITE);
                     counter = 0;
                 }
                 checkerBoard.add(new StackPane(tile), i, k);
-                checkerBoard.add(new StackPane(checkerPiece), i, k);
+                //checkerBoard.add(new StackPane(checkerPiece), i, k);
             }
         }
-
+        for(int x = 0; x < SIZE; x++){
+            for(int a = 0; a < SIZE/3; a++){
+                Circle checkerPiece = new Circle(15);
+                if(counter == 0) {
+                    checkerPiece.setFill(Color.RED);
+                    counter = 1; 
+                }
+                else {
+                    //checkerPiece.setFill(Color.BLACK);
+                    counter = 0;
+                }
+                checkerBoard.add(new StackPane(checkerPiece), x, a);
+            }
+        }
         this.checkerBoard = checkerBoard;
     }
 
