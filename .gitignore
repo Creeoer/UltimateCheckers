@@ -4,3 +4,5 @@ UltimateCheckers/bin/com/ultimatecheckers/main/Board.class
 UltimateCheckers/.vscode/launch.json
 UltimateCheckers/.vscode/settings.json
 .gitignore
+.vscode/launch.json
+.vscode/settings.json
