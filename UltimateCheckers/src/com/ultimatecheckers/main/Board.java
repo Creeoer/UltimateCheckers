@@ -43,17 +43,35 @@ public class Board {
             }
         }
         for(int x = 0; x < SIZE; x++){
-            for(int a = 0; a < SIZE/3; a++){
+            for(int a = 0; a < SIZE; a++){
                 Circle checkerPiece = new Circle(15);
-                if(counter == 0) {
-                    checkerPiece.setFill(Color.RED);
-                    counter = 1; 
+                if(a < SIZE/3){
+                    if(counter == 0) {
+                        checkerPiece.setFill(Color.RED);
+                        counter = 1; 
+                    }
+                    else {
+                        //checkerPiece.setFill(Color.BLACK);
+                        counter = 0;
+                    }
+                    checkerBoard.add(new StackPane(checkerPiece), x, a);
                 }
-                else {
-                    //checkerPiece.setFill(Color.BLACK);
-                    counter = 0;
+            }
+        }
+        for(int x = 0; x < SIZE; x++){
+            for(int a = 0; a < SIZE; a++){
+                Circle checkerPiece = new Circle(15);
+                if(a > 7){
+                    if(counter == 1) {
+                        checkerPiece.setFill(Color.BLACK);
+                        counter = 0; 
+                    }
+                    else {
+                        //checkerPiece.setFill(Color.BLACK);
+                        counter = 1;
+                    }
+                    checkerBoard.add(new StackPane(checkerPiece), x, a);
                 }
-                checkerBoard.add(new StackPane(checkerPiece), x, a);
             }
         }
         this.checkerBoard = checkerBoard;
