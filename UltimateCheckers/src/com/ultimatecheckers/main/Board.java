@@ -1,5 +1,8 @@
 package com.ultimatecheckers.main;
 
+import com.ultimatecheckers.checkers.Checker;
+import com.ultimatecheckers.checkers.Pawn;
+
 import javafx.scene.Parent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
@@ -44,33 +47,31 @@ public class Board {
         }
         for(int x = 0; x < SIZE; x++){
             for(int a = 0; a < SIZE; a++){
-                Circle checkerPiece = new Circle(15);
                 if(a < SIZE/3){
                     if(counter == 0) {
-                        checkerPiece.setFill(Color.RED);
+                        Checker checkerPiece = new Pawn(Color.RED, x, a);
+                        checkerBoard.add(new StackPane(checkerPiece.getElement()), x, a);
                         counter = 1; 
                     }
                     else {
                         //checkerPiece.setFill(Color.BLACK);
                         counter = 0;
                     }
-                    checkerBoard.add(new StackPane(checkerPiece), x, a);
                 }
             }
         }
         for(int x = 0; x < SIZE; x++){
             for(int a = 0; a < SIZE; a++){
-                Circle checkerPiece = new Circle(15);
                 if(a > 7){
                     if(counter == 1) {
-                        checkerPiece.setFill(Color.BLACK);
+                        Checker checkerPiece = new Pawn(Color.BLACK, x, a);
+                        checkerBoard.add(new StackPane(checkerPiece.getElement()), x, a);
                         counter = 0; 
                     }
                     else {
                         //checkerPiece.setFill(Color.BLACK);
                         counter = 1;
                     }
-                    checkerBoard.add(new StackPane(checkerPiece), x, a);
                 }
             }
         }

@@ -4,6 +4,7 @@ import javafx.event.EventTarget;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 
 public abstract class Checker {
 
@@ -14,16 +15,20 @@ public abstract class Checker {
 
     private double anchorX, anchorY;
 
-    public Checker(Color color, int row, int column){
+    public Checker(Color color, int column, int row){
         this.color = color;
-        this.row = row;
         this.column = column;
+        this.row = row;
         checkerPiece = new Circle(15);
         checkerPiece.setFill(color);
 
         initDraggableHandler();
     }
     
+    /*
+    When dragged on a piece it gets the node below it, and sets the circle to that node location.
+
+    */
 
     private void initDraggableHandler(){
         //Handle dragging
@@ -31,6 +36,8 @@ public abstract class Checker {
      checkerPiece.setOnMousePressed(event -> {
             anchorX = event.getSceneX();
             anchorY = event.getSceneY();
+            event.setDragDetect(true);
+
             //This is done so that when the mouse is released, it sees the tile under the checker piece
         //    checkerPiece.setMouseTransparent(true);
         }
@@ -39,13 +46,15 @@ public abstract class Checker {
         checkerPiece.setOnMouseDragged(event -> {
             checkerPiece.setTranslateX(event.getSceneX() - anchorX);
             checkerPiece.setTranslateY(event.getSceneY() - anchorY);
-        
-            anchorX = checkerPiece.getTranslateX();
-            anchorY = checkerPiece.getTranslateY();
+
+
+
+
+
+    
         //    checkerPiece.startFullDrag();
         });
 
-      
         /*
          checkerPiece.set(event -> {
              StackPane tile = ((StackPane) event.getTarget());
@@ -65,6 +74,10 @@ public abstract class Checker {
         this.color = color;
         checkerPiece.setFill(color);
       
+    }
+
+    private void move(int x, int y){
+    
     }
 
     public Circle getElement(){
