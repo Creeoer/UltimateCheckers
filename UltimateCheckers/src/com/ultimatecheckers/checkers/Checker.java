@@ -4,7 +4,6 @@ import javafx.event.EventTarget;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
 
 public abstract class Checker {
 
@@ -33,29 +32,45 @@ public abstract class Checker {
     private void initDraggableHandler(){
         //Handle dragging
 
+        /* Replace drag handler with mouse pressed handler, mouse released handler, 
+        and 
+
+        */
+
+    checkerPiece.setOnMouseClicked(evenet -> {
+
+    });
+
+
      checkerPiece.setOnMousePressed(event -> {
             anchorX = event.getSceneX();
             anchorY = event.getSceneY();
-            event.setDragDetect(true);
-
+       //     event.setDragDetect(true);
+            System.out.println("PRESSED ON PIECE!");
             //This is done so that when the mouse is released, it sees the tile under the checker piece
         //    checkerPiece.setMouseTransparent(true);
-        }
+     }
         );
 
-        checkerPiece.setOnMouseDragged(event -> {
-            checkerPiece.setTranslateX(event.getSceneX() - anchorX);
-            checkerPiece.setTranslateY(event.getSceneY() - anchorY);
+    checkerPiece.setOnMouseDragged(event -> {
+        checkerPiece.setMouseTransparent(true);
+        checkerPiece.setTranslateX(event.getSceneX() - anchorX);
+        checkerPiece.setTranslateY(event.getSceneY() - anchorY);
+        System.out.println("NODE ENTERED");
+    });
 
-
-
-
-
-    
-        //    checkerPiece.startFullDrag();
+ /*   checkerPiece.setOnDragDetected(event -> {
+            checkerPiece.startFullDrag();  
         });
 
+        */
+    checkerPiece.setOnMouseDragReleased(event -> {
+        System.out.println("ENTERED A NEW TARGET!");
+
+    });
+
         /*
+
          checkerPiece.set(event -> {
              StackPane tile = ((StackPane) event.getTarget());
              checkerPiece.setTranslateX(tile.getTranslateX());

@@ -7,7 +7,6 @@ import javafx.scene.Parent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 
 public class Board {
@@ -20,7 +19,6 @@ public class Board {
     public Board(int size){
 
         SIZE = size;
-        
 
         GridPane checkerBoard = new GridPane();
 
