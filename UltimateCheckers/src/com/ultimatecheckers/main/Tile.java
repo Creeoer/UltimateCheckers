@@ -1,6 +1,7 @@
 package com.ultimatecheckers.main;
 
 import com.ultimatecheckers.checkers.Checker;
+import com.ultimatecheckers.powerup.Powerup;
 
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -14,6 +15,7 @@ public class Tile extends Rectangle {
 
     private Checker checker;
     public int row, col;
+    private Powerup powerup;
 
     public Tile(int row, int col){
         this.row = row;
@@ -42,6 +44,18 @@ public class Tile extends Rectangle {
 
     public Checker getChecker(){
         return checker;
+    }
+
+    public boolean hasPowerup(){
+        return powerup != null;
+    }
+
+    public Powerup getPowerup(){
+        return this.powerup;
+    }
+
+    public void setPowerup(Powerup powerup){
+        this.powerup = powerup;
     }
 
 
