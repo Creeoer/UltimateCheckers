@@ -7,6 +7,8 @@ import java.util.Random;
 
 import com.ultimatecheckers.checkers.Checker;
 import com.ultimatecheckers.checkers.Pawn;
+import com.ultimatecheckers.powerup.Bomb;
+import com.ultimatecheckers.powerup.ExtraTurn;
 import com.ultimatecheckers.powerup.Powerup;
 
 import javafx.scene.Group;
@@ -18,6 +20,10 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 
 public class Board {
 
@@ -26,6 +32,8 @@ public class Board {
     private boolean previewMode;
 
     private GridPane checkerBoard;
+    private boolean extraTurn;
+    private Group root;
 
     private Button newGame;
     private Button loadGame;
@@ -34,12 +42,14 @@ public class Board {
     private boolean hasTurn;
 
     public Board(int size) {
+        root = new Group();
         newGame = new Button("New Game");
         loadGame = new Button("Load Game");
         saveGame = new Button("Save Game");
 
         previewMode = false;
         hasTurn = true;
+        extraTurn = false;
         SIZE = size;
         board = new Tile[SIZE][SIZE];
 
@@ -75,14 +85,38 @@ public class Board {
                     checkerBoard.add(new StackPane(checkerPiece), i, k);
 
                 }
+                 //add powerups
+                 if(k < 6 && k > SIZE / 3){
+                     //Random powerup on random part of board
+                     Random rand = new Random();
+                     if(rand.nextInt(4) == 2 && tile.getFill() != Color.BLACK){
+                         Random powerupRand = new Random();
+                         switch(powerupRand.nextInt(0, 2)) {
+                             case 0:
+                             Bomb bomb = new Bomb(i, k, board, SIZE, checkerBoard);
+                             tile.setPowerup(bomb);
+                             checkerBoard.add(new StackPane(bomb), i, k);
+                             break;
 
+                             case 1:
+                             ExtraTurn eTurn = new ExtraTurn();
+                             System.out.println("adding eturn");
+                             tile.setPowerup(eTurn);
+                             checkerBoard.add(new StackPane(eTurn), i, k);
+                             break;
+                         }
+                     }
+                 }
             }
+
+
         }
 
         this.checkerBoard = checkerBoard;
 
         checkerBoard.setOnMousePressed(event -> {
 
+            checkforWinConditions();
             int col = (int) ((event.getX() - 2) / 50);
             int row = (int) ((event.getY() - 2) / 50);
 
@@ -238,6 +272,45 @@ public class Board {
 
     }
 
+    private void checkforWinConditions() {
+
+        Text winText = new Text();
+        winText.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 25));
+        winText.setFill(Color.GRAY);
+        winText.setX(570);
+        winText.setY(550);
+      
+
+        List<Checker> redCheckers = new ArrayList<>();
+        List<Checker> blackCheckers = new ArrayList<>();
+
+        for(int i = 0; i < SIZE; i++){
+            for(int k = 0; k < SIZE; k++){
+                Tile tile = board[i][k];
+                if(tile.hasChecker()){
+                    Checker piece = tile.getChecker();
+                    if(piece.getColor() == Color.RED) { 
+                        redCheckers.add(piece);
+                    } else {
+                        blackCheckers.add(piece);
+                    }
+                }
+            }
+        }
+
+
+        //Player won
+        if(redCheckers.isEmpty()){
+            winText.setText("Player has won!");
+        } else if(blackCheckers.isEmpty()){
+            //AI won
+            winText.setText("Computer has won!");
+        }
+
+        root.getChildren().add(winText);
+
+    }
+
     /*
      * private void moveChecker(Checker checkertoMove, Tile from, Tile to){
      * 
@@ -286,27 +359,49 @@ public class Board {
                 }
 
             }
-            // powerup detected, use on piece
-            if (to.hasPowerup()) {
-                Powerup powerup = to.getPowerup();
-                powerup.use(piece);
 
-                //figure out how to remove powerup
-                // checkerBoard.getChildren().remove(new StackPane(powerup.getElement()));
-                to.setPowerup(null);
-
-            }
-
+            
             to.setChecker(piece);
             checkerBoard.add(new StackPane(piece), to.col, to.row);
 
             removePreviewCircles();
 
+            // powerup detected, use on piece
+            if (to.hasPowerup()) {
+                Powerup powerup = to.getPowerup();
+                powerup.use(to);
+
+                if(powerup instanceof ExtraTurn)
+                    extraTurn = true;
+
+                //figure out how to remove powerup
+                // checkerBoard.getChildren().remove(new StackPane(powerup.getElement()));
+    
+                checkerBoard.getChildren().remove(new StackPane(to.getPowerup().getElement()));
+                to.setPowerup(null);
+            }
+/*
+            to.setChecker(piece);
+            checkerBoard.add(new StackPane(piece), to.col, to.row);
+
+            removePreviewCircles();
+*/
             // initate ai turn
+            if(!extraTurn) {
+            for(int i = 0; i < 1; i ++){
+                if(!runAITurn())
+                    runAITurn();
+            }
+        }
+
+        //If the extra turn is true then set it false
+        if(extraTurn)
+            extraTurn = false;
+                /*
             do {
                 runAITurn();
             } while (!runAITurn());
-
+*/
         });
 
         checkerBoard.add(new StackPane(previewMove), to.col, to.row);
@@ -379,7 +474,7 @@ public class Board {
             }
         }
 
-        if (col + 1 < SIZE && row + 1 < 0) {
+        if (col + 1 < SIZE && row + 1 < SIZE) {
             Tile rightDiagnol = board[col + 1][row + 1];
 
             if (rightDiagnol.hasChecker() && rightDiagnol.getChecker().getColor() != Color.RED) {
@@ -430,8 +525,10 @@ public class Board {
             computerTile.removeChecker();
             checkerBoard.getChildren().remove(computerTile.getChecker());
             return true;
+        } else {
+            return false;
         }
-        return false;
+    
     }
 
     public Parent getBoard() {
@@ -451,7 +548,6 @@ public class Board {
         newGame.setOnAction(event -> System.out.println("Hit!!"));
         loadGame.setOnAction(event -> System.out.println("Hit!!!"));
 
-        Group root = new Group();
         Scene scene = new Scene(root, 775, 560);
         root.getChildren().add(newGame);
         root.getChildren().add(checkerBoard);
