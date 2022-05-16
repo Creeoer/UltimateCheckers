@@ -9,4 +9,5 @@ public class King extends Checker {
 
     }
     
+    
 }
